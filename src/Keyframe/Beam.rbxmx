@@ -1,0 +1,32 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Beam" referent="RBX453E98FF0DBF401BB123F206AC25CBE2">
+		<Properties>
+			<Ref name="Attachment0">null</Ref>
+			<Ref name="Attachment1">null</Ref>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<float name="Brightness">1.78999996</float>
+			<ColorSequence name="Color">0 0.478431 0.576471 0.611765 0 1 0.705882 0.862745 1 0 </ColorSequence>
+			<float name="CurveSize0">10</float>
+			<float name="CurveSize1">10</float>
+			<bool name="Enabled">true</bool>
+			<bool name="FaceCamera">true</bool>
+			<float name="LightEmission">0</float>
+			<float name="LightInfluence">0</float>
+			<string name="Name">Beam</string>
+			<int name="Segments">30</int>
+			<int64 name="SourceAssetId">-1</int64>
+			<BinaryString name="Tags">Y3NlX2tmYg==</BinaryString>
+			<Content name="Texture"><null></null></Content>
+			<float name="TextureLength">1</float>
+			<token name="TextureMode">2</token>
+			<float name="TextureSpeed">1</float>
+			<NumberSequence name="Transparency">0 0.5 0 1 0.5 0 </NumberSequence>
+			<float name="Width0">0</float>
+			<float name="Width1">0.5</float>
+			<float name="ZOffset">0</float>
+		</Properties>
+	</Item>
+</roblox>

@@ -1,0 +1,9 @@
+{
+  "name": "cutscene",
+  "tree": {
+    "$path": "src",
+    "includes": {
+      "$path": "Packages"
+    }
+  }
+}

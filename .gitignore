@@ -1,0 +1,14 @@
+# VSCode files
+.vscode
+
+# Roblox Studio lock files
+/*.rbxlx.lock
+/*.rbxl.lock
+/*.rbxm
+
+# Selene files
+roblox.toml
+
+# Wally files
+wally.lock
+Packages
