@@ -23,7 +23,7 @@ function tracing.new(keyframes: {[number]: Model}, events, timings)
     mt.KeyframeStarted = Signal.new()
     mt.Finished = Signal.new()
 
-    setmetatable(mt, tracing) -- this mt is refusing to work
+    setmetatable(mt, tracing)
 
     mt.Began:Connect(function()
         if mt._events and mt._events["First"] ~= nil then
@@ -43,7 +43,6 @@ function tracing.new(keyframes: {[number]: Model}, events, timings)
         end
     end)
 
-    print(mt, getmetatable(mt)) -- metatable exists here
     return mt
 end
 
@@ -63,7 +62,6 @@ end
 
 -- Beings the camera path
 function tracing:begin()
-    print(self, getmetatable(self)) -- metatable doesnt exist here
     if self._thread then
         return
     end
@@ -72,7 +70,7 @@ function tracing:begin()
         workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
         self._camera = workspace.CurrentCamera
         local conn
-        conn = self.Finished:Connect(function() -- <== attempt to index nil with 'Connect'
+        conn = self.Finished:Connect(function()
             coroutine.yield()
             coroutine.close(self._thread)
             self._thread = nil
@@ -93,7 +91,6 @@ end
 
 -- Ends the camera path
 function tracing:stop()
-    print(self, getmetatable(self)) -- metatable doesnt exist here
     self.connections.Finished:Fire()
 end
 
