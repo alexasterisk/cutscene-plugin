@@ -24,6 +24,13 @@ local beamp: Beam = script.Beam
 local beams = {}
 local keyframes = {}
 
+-- solve bezier curve sizes
+local function calculateCurve(p1: Model, p2: Model, beam: Beam)
+    local dist = (p1.PrimaryPart.Position - p2.PrimaryPart.Position).Magnitude
+    beam.CurveSize0 = math.clamp(dist / 10, 0, 10)
+    beam.CurveSize1 = math.clamp(dist / 10, 0, 10)
+end
+
 local keyframe = {}
 keyframe.__index = keyframe
 
@@ -55,29 +62,33 @@ function keyframe.new(cf: CFrame, pos: number?)
     local before = keyframes[pos - 1]
     local after = keyframes[pos + 1]
 
-    if before ~= nil then
-        local id = pos - 1 .. "-" .. pos
-        local tb = beams[id]
-        if tb ~= nil then
-            tb:Destroy()
-        end
+    if before or after then
         local beam = beamp:Clone()
-        beam.Name = "Beam " .. id
-        beam.Attachment0 = before.Camera.Attachment
-        beam.Attachment1 = inst.Camera.Attachment
-        beam.Parent = beamFolder
-    end
 
-    if after ~= nil then
-        local id = pos .. "-" .. pos + 1
-        local tb = beams[id]
-        if tb ~= nil then
-            tb:Destroy()
+        if before ~= nil then
+            local id = pos - 1 .. "-" .. pos
+            local tb = beams[id]
+            if tb ~= nil then
+                tb:Destroy()
+            end
+            beam.Name = "Beam " .. id
+            beam.Attachment0 = before.Camera.Attachment
+            beam.Attachment1 = inst.Camera.Attachment
+            calculateCurve(before, inst, beam)
         end
-        local beam = beamp:Clone()
-        beam.Name = "Beam " .. id
-        beam.Attachment0 = inst.Camera.Attachment
-        beam.Attachment1 = after.Camera.Attachment
+
+        if after ~= nil then
+            local id = pos .. "-" .. pos + 1
+            local tb = beams[id]
+            if tb ~= nil then
+                tb:Destroy()
+            end
+            beam.Name = "Beam " .. id
+            beam.Attachment0 = inst.Camera.Attachment
+            beam.Attachment1 = after.Camera.Attachment
+            calculateCurve(inst, after, beam)
+        end
+
         beam.Parent = beamFolder
     end
 
