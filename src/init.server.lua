@@ -28,13 +28,13 @@ UserInputService.InputBegan:Connect(function(input: InputObject)
     if not RunService:IsEdit() then
         if input.KeyCode == Enum.KeyCode.P then
             if not currentTrace then
-                Tracing.new(Keyframe.table, {}, {})
+                currentTrace = Tracing.new(Keyframe.table, {}, {})
             end
             tracePlaying = not tracePlaying
             if tracePlaying then
-                Tracing:begin()
+                currentTrace:begin()
             else
-                Tracing:stop()
+                currentTrace:stop()
             end
         end
     else
