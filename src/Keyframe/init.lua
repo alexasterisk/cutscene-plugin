@@ -20,9 +20,7 @@ local model: Model = script.Cam;
 
 -- create a beam placeholder
 local beamp: Beam = script.Beam
-
 local beams = {}
-local keyframes = {}
 
 -- solve bezier curve sizes
 local function calculateCurve(p1: Model, p2: Model, beam: Beam)
@@ -32,7 +30,7 @@ local function calculateCurve(p1: Model, p2: Model, beam: Beam)
 end
 
 local keyframe = {}
-keyframe.__index = keyframe
+keyframe.table = {}
 
 --- Creates a new Keyframe for the Cutscene Editor
 ---@param cf CFrame The CFrame that the position should be saved at
@@ -47,20 +45,20 @@ function keyframe.new(cf: CFrame, pos: number?)
         inst.Name = "Keyframe " .. pos
 
         -- validate
-        if keyframes[pos] ~= nil then
-            keyframes[pos]:Destroy()
+        if keyframe.table[pos] ~= nil then
+            keyframe.table[pos]:Destroy()
         end
-        keyframes[pos] = inst
+        keyframe.table[pos] = inst
     else
-        pos = #keyframes + 1
+        pos = #keyframe.table + 1
         inst.Name = "Keyframe " .. pos
-        table.insert(keyframes, inst)
+        table.insert(keyframe.table, inst)
     end
 
     -- TODO make beziers smooth no matter their direction of movement
     -- connect the beams to eachother
-    local before = keyframes[pos - 1]
-    local after = keyframes[pos + 1]
+    local before = keyframe.table[pos - 1]
+    local after = keyframe.table[pos + 1]
 
     if before or after then
         local beam = beamp:Clone()
