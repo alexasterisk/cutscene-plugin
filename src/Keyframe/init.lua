@@ -30,8 +30,7 @@ local function calculateCurve(p1: Model, p2: Model, beam: Beam)
 end
 
 local keyframe = {}
-
-keyframe.table = {} :: {[string]: Model}
+local keyframes: {[string]: Model} = {}
 
 --- Creates a new Keyframe for the Cutscene Editor
 ---@param cf CFrame The CFrame that the position should be saved at
@@ -46,20 +45,20 @@ function keyframe.new(cf: CFrame, pos: number?)
         inst.Name = "Keyframe " .. pos
 
         -- validate
-        if keyframe.table[pos] ~= nil then
-            keyframe.table[pos]:Destroy()
+        if keyframes[pos] ~= nil then
+            keyframes[pos]:Destroy()
         end
-        keyframe.table[pos] = inst
+        keyframes[pos] = inst
     else
-        pos = #keyframe.table + 1
+        pos = #keyframes + 1
         inst.Name = "Keyframe " .. pos
-        table.insert(keyframe.table, inst)
+        table.insert(keyframes, inst)
     end
 
     -- TODO make beziers smooth no matter their direction of movement
     -- connect the beams to eachother
-    local before = keyframe.table[pos - 1]
-    local after = keyframe.table[pos + 1]
+    local before = keyframes[pos - 1]
+    local after = keyframes[pos + 1]
 
     if before or after then
         local beam = beamp:Clone()
@@ -96,4 +95,5 @@ function keyframe.new(cf: CFrame, pos: number?)
     History:SetWaypoint("CSE: New Keyframe")
 end
 
+keyframe.table = keyframes
 return keyframe
