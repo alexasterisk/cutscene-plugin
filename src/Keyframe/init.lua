@@ -20,7 +20,7 @@ local model: Model = script.Cam;
 
 -- create a beam placeholder
 local beamp: Beam = script.Beam
-local beams = {}
+local beams: {[string]: Beam} = {}
 
 -- solve bezier curve sizes
 local function calculateCurve(p1: Model, p2: Model, beam: Beam)
@@ -30,7 +30,8 @@ local function calculateCurve(p1: Model, p2: Model, beam: Beam)
 end
 
 local keyframe = {}
-keyframe.table = {}
+
+keyframe.table = {} :: {[string]: Model}
 
 --- Creates a new Keyframe for the Cutscene Editor
 ---@param cf CFrame The CFrame that the position should be saved at
@@ -73,6 +74,7 @@ function keyframe.new(cf: CFrame, pos: number?)
             beam.Attachment0 = before.Camera.Attachment
             beam.Attachment1 = inst.Camera.Attachment
             calculateCurve(before, inst, beam)
+            beams[id] = beam
         end
 
         if after ~= nil then
@@ -85,6 +87,7 @@ function keyframe.new(cf: CFrame, pos: number?)
             beam.Attachment0 = inst.Camera.Attachment
             beam.Attachment1 = after.Camera.Attachment
             calculateCurve(inst, after, beam)
+            beams[id] = beam
         end
 
         beam.Parent = beamFolder
