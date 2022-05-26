@@ -6,3 +6,4 @@ registry = "https://github.com/upliftgames/wally-index"
 
 [dependencies]
 Janitor = "howmanysmall/janitor@1.14.1"
+Signal = "sleitnick/signal@1.2.0"
